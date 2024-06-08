@@ -1,113 +1,155 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+import React from 'react';
+import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+import styles from './page.module.css';
+import Link from "next/link"
+import { Card, CardContent } from "@/components/ui/card";
 
-      <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+const Page = () => {
+	const router = useRouter();
 
-      <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
+	const handleSignIn = () => {
+		router.push('/sign-in');
+	};
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
+	const handleSignUp = () => {
+		router.push('/sign-up');
+	};
+	return (
+		<div className="flex flex-col min-h-[100dvh] bg-gray-950 text-gray-50">
+			<main className="flex-1">
+				<section className="w-full py-24 md:py-32 lg:py-40">
+					<div className="container px-4 md:px-6 lg:px-8">
+						<div className="grid gap-8 md:grid-cols-2 md:gap-12 lg:gap-16">
+							<div className="space-y-4 md:space-y-6 lg:space-y-8">
+								<h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl">
+									The Minimalist Wallet
+								</h1>
+								<p className="text-lg text-gray-400 md:text-xl lg:text-2xl">
+									A sleek and modern wallet that keeps your essentials organized and accessible.
+								</p>
+								<Link
+									href="#"
+									className="inline-flex h-10 items-center justify-center rounded-md bg-gray-50 px-6 text-sm font-medium text-gray-950 shadow-sm transition-colors hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-950 focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+									prefetch={false}
+								>
+									Get Started
+								</Link>
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Explore starter templates for Next.js.
-          </p>
-        </a>
+								<button onClick={handleSignIn} className={styles.button} style={{ fontWeight: '600', padding: '10px 30px', fontSize: '1rem' }}>
+									Sign In
+								</button>
+							</div>
+							<img
+								src="/placeholder.svg"
+								width="550"
+								height="550"
+								alt="Wallet"
+								className="mx-auto aspect-square overflow-hidden rounded-xl object-cover sm:w-full"
+							/>
+						</div>
+					</div>
+				</section>
+				<section className="w-full py-12 md:py-16 lg:py-20 bg-gray-900">
+					<div className="container px-4 md:px-6 lg:px-8">
+						<div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+							<Card>
+								<CardContent className="space-y-2">
+									<CreditCardIcon className="h-8 w-8" />
+									<h3 className="text-lg font-semibold">Slim Design</h3>
+									<p className="text-gray-400">
+										Our wallet is designed to be slim and compact, fitting comfortably in your pocket.
+									</p>
+								</CardContent>
+							</Card>
+							<Card>
+								<CardContent className="space-y-2">
+									<LockIcon className="h-8 w-8" />
+									<h3 className="text-lg font-semibold">Secure Storage</h3>
+									<p className="text-gray-400">Keep your cards and cash safe with our durable and protective design.</p>
+								</CardContent>
+							</Card>
+							<Card>
+								<CardContent className="space-y-2">
+									<AccessibilityIcon className="h-8 w-8" />
+									<h3 className="text-lg font-semibold">Easy Access</h3>
+									<p className="text-gray-400">Quickly access your essentials with our thoughtful organization.</p>
+								</CardContent>
+							</Card>
+						</div>
+					</div>
+				</section>
+			</main>
+			<footer className="bg-gray-900 py-6 text-center text-sm text-gray-400">
+				<div className="container px-4 md:px-6 lg:px-8">&copy; 2024 The Minimalist Wallet. All rights reserved.</div>
+			</footer>
+		</div>
+	)
+}
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-balance text-sm opacity-50">
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  );
+function AccessibilityIcon(props) {
+	return (
+		<svg
+			{...props}
+			xmlns="http://www.w3.org/2000/svg"
+			width="24"
+			height="24"
+			viewBox="0 0 24 24"
+			fill="none"
+			stroke="currentColor"
+			strokeWidth="2"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+		>
+			<circle cx="16" cy="4" r="1" />
+			<path d="m18 19 1-7-6 1" />
+			<path d="m5 8 3-3 5.5 3-2.36 3.5" />
+			<path d="M4.24 14.5a5 5 0 0 0 6.88 6" />
+			<path d="M13.76 17.5a5 5 0 0 0-6.88-6" />
+		</svg>
+	)
+}
+
+
+function CreditCardIcon(props) {
+	return (
+		<svg
+			{...props}
+			xmlns="http://www.w3.org/2000/svg"
+			width="24"
+			height="24"
+			viewBox="0 0 24 24"
+			fill="none"
+			stroke="currentColor"
+			strokeWidth="2"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+		>
+			<rect width="20" height="14" x="2" y="5" rx="2" />
+			<line x1="2" x2="22" y1="10" y2="10" />
+		</svg>
+	)
+}
+
+
+function LockIcon(props) {
+	return (
+		<svg
+			{...props}
+			xmlns="http://www.w3.org/2000/svg"
+			width="24"
+			height="24"
+			viewBox="0 0 24 24"
+			fill="none"
+			stroke="currentColor"
+			strokeWidth="2"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+		>
+			<rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+			<path d="M7 11V7a5 5 0 0 1 10 0v4" />
+		</svg>
+	)
 }
