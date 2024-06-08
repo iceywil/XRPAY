@@ -6,8 +6,8 @@
 "use client"
 
 import { useState } from "react"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
+import { Input } from "@/app/components/ui/input";
+import { Button } from "@/app/components/ui/button";
 
 export default function Component() {
   const [messages, setMessages] = useState([
@@ -18,31 +18,39 @@ export default function Component() {
     },
   ])
   const [inputValue, setInputValue] = useState("")
-  const handleSubmit = (e: any) => {
+
+  const handleSubmit = async (e: any) => {
     e.preventDefault()
     if (inputValue.trim() !== "") {
-      setMessages([...messages, { id: messages.length + 1, text: inputValue, sender: "user" }])
-      handleBotResponse(inputValue)
+      const newMessage = { id: messages.length + 1, text: inputValue, sender: "user" };
+      setMessages(prevMessages => [...prevMessages, newMessage]);
+      await handleBotResponse(inputValue)
       setInputValue("")
     }
   }
-  const handleBotResponse = (userInput: any) => {
-    let botResponse = ""
-    switch (userInput.toLowerCase()) {
-      case "price":
-        botResponse = `The current XRP price is $0.50.`
-        break
-      case "market cap":
-        botResponse = `The current XRP market cap is $25 billion.`
-        break
-      case "about":
-        botResponse = `XRP is a cryptocurrency that was created by Ripple Labs. It is used for fast and low-cost international money transfers.`
-        break
-      default:
-        botResponse = `I'm sorry, I don't have information about that. Please ask me about the XRP price, market cap, or general information about XRP.`
+
+  const handleBotResponse = async (userInput: any) => {
+    try {
+      const response = await fetch('http://localhost:3000/api/ai', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ userInput })
+      });
+      const data = await response.json();
+      console.log(data);
+      
+      if (data.Message) {
+        const newMessage = { id: messages.length + 2, text: data.Message, sender: "bot" };
+        setMessages(prevMessages => [...prevMessages, newMessage]);
+      }
     }
-    setMessages([...messages, { id: messages.length + 1, text: botResponse, sender: "bot" }])
+    catch (error: any) {
+      console.error(error);
+    }
   }
+
   return (
     <div className="flex flex-col h-screen">
       <header className="bg-[#23292F] py-4 px-6">
@@ -58,18 +66,17 @@ export default function Component() {
             className={`flex items-start mb-4 ${message.sender === "bot" ? "justify-start" : "justify-end self-end"}`}
           >
             <div
-              className={`max-w-[70%] px-4 py-2 rounded-lg ${
-                message.sender === "bot"
+              className={`max-w-[70%] px-4 py-2 rounded-lg ${message.sender === "bot"
                   ? "bg-gray-200 text-gray-800 rounded-br-none"
                   : "bg-[#23292F] text-white rounded-bl-none"
-              }`}
+                }`}
             >
               {message.text}
             </div>
           </div>
         ))}
       </div>
-      <form onSubmit={handleSubmit} className="bg-gray-100 py-4 px-6 flex items-center">
+      <form onSubmit={async (e: any) => await handleSubmit(e)} className="bg-gray-100 py-4 px-6 flex items-center">
         <Input
           type="text"
           placeholder="Type your message..."
