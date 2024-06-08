@@ -6,16 +6,16 @@ import Image from 'next/image';
 import styles from './page.module.css';
 import Link from "next/link"
 
-const Page = () => {
+export default function Home() {
 	const router = useRouter();
 
 	const handleSignIn = () => {
 		router.push('/sign-in');
 	};
-
 	const handleSignUp = () => {
 		router.push('/sign-up');
 	};
+
 	return (
 		<div className="flex flex-col min-h-[100dvh] bg-gray-950 text-gray-50">
 			<main className="flex-1">
@@ -24,16 +24,16 @@ const Page = () => {
 						<div className="grid gap-8 md:grid-cols-2 md:gap-12 lg:gap-16">
 							<div className="space-y-4 md:space-y-6 lg:space-y-8">
 								<h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl">
-									The Minimalist Wallet
+									XRPAY
 								</h1>
 								<p className="text-lg text-gray-400 md:text-xl lg:text-2xl">
-									A sleek and modern wallet that keeps your essentials organized and accessible.
+									Smoothest way to use the XRP Ledger Blockchain
 								</p>
 								<a
-									href="#"
+									href="sign-in"
 									className="inline-flex h-10 items-center justify-center rounded-md bg-gray-50 px-6 text-sm font-medium text-gray-950 shadow-sm transition-colors hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-950 focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
 								>
-									Get Started
+									Dive In
 								</a>
 							</div>
 							<img
