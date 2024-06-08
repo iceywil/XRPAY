@@ -1,14 +1,14 @@
 import { Client, Payment, xrpToDrops } from "xrpl" 
 
-const client = new Client("wss://s.altnet.rippletest.net:51233")
-
 export const paymentTransaction = async (balance: number) => {
   console.log("lets get started...");
+  const client = new Client("wss://s.altnet.rippletest.net:51233")
   await client.connect();
 
   // do something interesting here
   console.log('lets fund 2 accounts...')
-  const { wallet: wallet1, balance: balance1 } = await client.fundWallet();
+  console.log(balance);
+  const { wallet: wallet1, balance: balance1 } = await client.fundWallet()
   const { wallet: wallet2, balance: balance2 } = await client.fundWallet();
 
   console.log('wallet1', wallet1)
@@ -42,5 +42,5 @@ export const paymentTransaction = async (balance: number) => {
   })
 
   await client.disconnect();
-  console.log("all done!");
+  return result.result;
 };

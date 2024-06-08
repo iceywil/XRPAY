@@ -8,6 +8,7 @@
 import { useState } from "react"
 import { Input } from "@/app/components/ui/input";
 import { Button } from "@/app/components/ui/button";
+import { paymentTransaction } from "../lib/paymentTransaction";
 
 export default function Component() {
   const [messages, setMessages] = useState([
@@ -39,19 +40,33 @@ export default function Component() {
         body: JSON.stringify({ userInput })
       });
       const data = await response.json();
-      console.log(data);
+
+      await handleCommand(data);
 
       if (data.message) {
-        const newMessage = { id: messages.length + 2, text: data.message, sender: "bot" };
+        const newMessage = { id: messages.length + 3, text: data.message, sender: "bot" };
         setMessages(prevMessages => [...prevMessages, newMessage]);
       } else if (data.error) {
-        const newMessage = { id: messages.length + 2, text: data.error, sender: "bot" };
+        const newMessage = { id: messages.length + 3, text: data.error, sender: "bot" };
         setMessages(prevMessages => [...prevMessages, newMessage]);
       }
     }
     catch (error: any) {
       console.error(error);
     }
+  }
+
+  async function handleCommand(command: any) {
+    switch (command.transactionType) {
+      case ("payment" || "Payment"): {
+        const result = await paymentTransaction(command.amount);
+        const url = `https://testnet.xrpl.org/transactions/${result.hash}`;
+        const newMessage = { id: messages.length + 2, text: `${url}`, sender: "bot" };
+        setMessages(prevMessages => [...prevMessages, newMessage]);
+      }
+        break;
+    }
+1
   }
 
   return (
@@ -69,11 +84,20 @@ export default function Component() {
           >
             <div
               className={`max-w-[70%] px-4 py-2 rounded-lg ${message.sender === "bot"
-                  ? "bg-gray-200 text-gray-800 rounded-br-none"
-                  : "bg-[#23292F] text-white rounded-bl-none"
-                }`}
-            >
-              {message.text}
+                ? "bg-gray-200 text-gray-800 rounded-br-none"
+                : "bg-[#23292F] text-white rounded-bl-none"
+                }`}>
+              {/* Check if the message contains a URL */}
+              {message.text.startsWith("https") ? (
+                // If the message starts with "http" assuming it's a URL
+                <a href={message.text} target="_blank" rel="noopener noreferrer" href={message.text}>
+                  {/* Render the URL as a clickable link */}
+                  Link
+                </a>
+              ) : (
+                // If it's not a URL, render the text as usual
+                message.text
+              )}
             </div>
           </div>
         ))}

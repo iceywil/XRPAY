@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
       messages: [
         {
           role: "system",
-          content: "You are an assistant that generates JSON. You always return just the JSON with no additional description or context. The JSON contains the following structure if the prompt requires a payment transaction to be be made with XRP: TransactionType, Account, Amount, Destination. Additionaly to the request add a message property that the command has succeeded or has failed. All the properties are in lowercase."
+          content: "You are an assistant that generates JSON. You always return just the JSON with no additional description or context. The JSON contains the following structure if the prompt requires a payment transaction to be be made with XRP: TransactionType, Account, Amount, Destination. Additionaly to the request add a message property that the command has succeeded or has failed. All the key properties are in camelCase and the values are in lowercase."
         },
         {
           role: "user",
@@ -27,8 +27,7 @@ export async function POST(request: NextRequest) {
 
     let jsonResponse: any = response.choices[0].message.content;
     jsonResponse = jsonResponse.replace(/\\n|\\|json|```/g, '');
-
-    handleCommand(jsonResponse);
+    const obj = JSON.parse(jsonResponse);
 
     try {
       jsonResponse = JSON.parse(jsonResponse);
@@ -46,8 +45,8 @@ export async function POST(request: NextRequest) {
 
 async function handleCommand(command: any) {
   switch(command.transactionType) {
-    case "payment": {
-      paymentTransaction(command.balance);
+    case ("payment" || "Payment") : {
+      await paymentTransaction(command.balance);
     }
   }
 }
