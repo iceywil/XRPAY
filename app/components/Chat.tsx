@@ -13,7 +13,7 @@ export default function Component() {
   const [messages, setMessages] = useState([
     {
       id: 1,
-      text: "Hello! I am the XRP Chatbot. How can I assist you today?",
+      text: "Hello! I am the XRPay Chatbot. How can I assist you today?",
       sender: "bot",
     },
   ])
@@ -40,9 +40,12 @@ export default function Component() {
       });
       const data = await response.json();
       console.log(data);
-      
-      if (data.Message) {
-        const newMessage = { id: messages.length + 2, text: data.Message, sender: "bot" };
+
+      if (data.message) {
+        const newMessage = { id: messages.length + 2, text: data.message, sender: "bot" };
+        setMessages(prevMessages => [...prevMessages, newMessage]);
+      } else if (data.error) {
+        const newMessage = { id: messages.length + 2, text: data.error, sender: "bot" };
         setMessages(prevMessages => [...prevMessages, newMessage]);
       }
     }
@@ -55,8 +58,7 @@ export default function Component() {
     <div className="flex flex-col h-screen">
       <header className="bg-[#23292F] py-4 px-6">
         <div className="flex items-center">
-          <img src="/placeholder.svg" alt="XRP Logo" width={40} height={40} className="mr-4" />
-          <h1 className="text-white text-lg font-bold">XRP Chatbot</h1>
+          <h1 className="text-white text-lg font-bold">XRPay Chatbot</h1>
         </div>
       </header>
       <div className="flex-1 overflow-y-auto p-6">
