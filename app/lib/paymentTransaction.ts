@@ -1,6 +1,6 @@
-import xrpl  from "xrpl" 
+import { Client, Payment, xrpToDrops } from "xrpl" 
 
-const client = new xrpl.Client("wss://s.altnet.rippletest.net:51233")
+const client = new Client("wss://s.altnet.rippletest.net:51233")
 
 export const paymentTransaction = async (balance: number) => {
   console.log("lets get started...");
@@ -20,11 +20,11 @@ export const paymentTransaction = async (balance: number) => {
     address2: wallet2.address 
   });
 
-  const tx:xrpl.Payment  = {
+  const tx: Payment  = {
     TransactionType: "Payment",
     Account: wallet1.classicAddress,
     Destination: wallet2.classicAddress,
-    Amount: xrpl.xrpToDrops(balance) || xrpl.xrpToDrops("13")
+    Amount: xrpToDrops(balance) || xrpToDrops("13")
   };
 
   console.log('submitting the payment transaction... ', tx)

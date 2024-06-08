@@ -1,10 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { OpenAI } from 'openai';
-import { paymentTransaction } from '../../lib/main';
-
-type ResponseData = {
-  message: string
-}
+import { paymentTransaction } from '@/app/lib/paymentTransaction';
 
 export async function POST(request: NextRequest) {
   const openai = new OpenAI({ baseURL: process.env.OPENAI_BASE_URL, apiKey: process.env.OPENAI_API_KEY });
@@ -49,11 +45,54 @@ export async function POST(request: NextRequest) {
 
 
 async function handleCommand(command: any) {
-  switch(command.TransactionType) {
-    case "Payment": {
+  switch(command.transactionType) {
+    case "payment": {
       paymentTransaction(command.balance);
     }
-
   }
-
 }
+
+// const client = new xrpl.Client("wss://s.altnet.rippletest.net:51233")
+
+// const paymentTransaction = async (balance: number) => {
+//   console.log("lets get started...");
+//   await client.connect();
+
+//   // do something interesting here
+//   console.log('lets fund 2 accounts...')
+//   const { wallet: wallet1, balance: balance1 } = await client.fundWallet();
+//   const { wallet: wallet2, balance: balance2 } = await client.fundWallet();
+
+//   console.log('wallet1', wallet1)
+
+//   console.log({ 
+//     balance1, 
+//     address1: wallet1.address, //wallet1.seed
+//     balance2, 
+//     address2: wallet2.address 
+//   });
+
+//   const tx:xrpl.Payment  = {
+//     TransactionType: "Payment",
+//     Account: wallet1.classicAddress,
+//     Destination: wallet2.classicAddress,
+//     Amount: xrpl.xrpToDrops(balance) || xrpl.xrpToDrops("13")
+//   };
+
+//   console.log('submitting the payment transaction... ', tx)
+
+//   const result = await client.submitAndWait(tx, {
+//     autofill: true,
+//     wallet: wallet1,
+//   }); 
+
+//   console.log(result)
+
+//   console.log({
+//     'balance 1': await client.getBalances(wallet1.classicAddress), 
+//     'balance 2': await client.getBalances(wallet2.classicAddress)
+//   })
+
+//   await client.disconnect();
+//   console.log("all done!");
+// };
