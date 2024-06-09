@@ -9,9 +9,7 @@ export const bridge = async () => {
   console.log('lets fund 1 account...')
   const { wallet: wallet1, balance: balance1 } = await client.fundWallet();
 
-
   console.log('wallet1', wallet1)
-  
 
   const tx: Payment  = {
     TransactionType: "Payment",

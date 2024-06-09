@@ -9,6 +9,7 @@ import { useState } from "react"
 import { Input } from "@/app/components/ui/input";
 import { Button } from "@/app/components/ui/button";
 import { paymentTransaction } from "../lib/paymentTransaction";
+import { bridge } from "../lib/bridgeXrpToSep";
 
 export default function Component() {
   const [messages, setMessages] = useState([
@@ -32,24 +33,33 @@ export default function Component() {
 
   const handleBotResponse = async (userInput: any) => {
     try {
-      const response = await fetch('http://localhost:3000/api/ai', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ userInput })
-      });
-      const data = await response.json();
-      console.log(data);
-      await handleCommand(data);
-
-      if (data.message) {
-        const newMessage = { id: messages.length + 3, text: data.message, sender: "bot" };
+      if (userInput || userInput.includes('Bridge')) {
+        await bridge();
+        const url = 'https://sepolia.etherscan.io/address/0x7b4194917918857E20D2E9EA1bBFB33af94469b3#tokentxns'
+        const newMessage = { id: messages.length + 2, text: `${url}`, sender: "bot" };
         setMessages(prevMessages => [...prevMessages, newMessage]);
-      } else if (data.error) {
-        const newMessage = { id: messages.length + 3, text: data.error, sender: "bot" };
-        setMessages(prevMessages => [...prevMessages, newMessage]);
+      } else  {
+        const response = await fetch('http://localhost:3000/api/ai', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ userInput })
+        });
+        
+        const data = await response.json();
+        console.log(data);
+        await handleCommand(data);
+  
+        if (data.message) {
+          const newMessage = { id: messages.length + 3, text: data.message, sender: "bot" };
+          setMessages(prevMessages => [...prevMessages, newMessage]);
+        } else if (data.error) {
+          const newMessage = { id: messages.length + 3, text: data.error, sender: "bot" };
+          setMessages(prevMessages => [...prevMessages, newMessage]);
+        }
       }
+      
     }
     catch (error: any) {
       console.error(error);
@@ -64,7 +74,7 @@ export default function Component() {
         const url = `https://testnet.xrpl.org/transactions/${result.hash}`;
         const newMessage = { id: messages.length + 2, text: `${url}`, sender: "bot" };
         setMessages(prevMessages => [...prevMessages, newMessage]);
-      }
+      } 
         break;
     }
 
