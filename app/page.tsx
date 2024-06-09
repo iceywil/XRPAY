@@ -2,9 +2,6 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
-import styles from './page.module.css';
-import Link from "next/link"
 
 export default function Home() {
 	const router = useRouter();
@@ -90,7 +87,7 @@ export default function Home() {
 				</section>
 			</main>
 			<footer className="bg-gray-900 py-6 text-center text-sm text-gray-400">
-				<div className="container px-4 md:px-6 lg:px-8">&copy; 2024 The Minimalist Wallet. All rights reserved.</div>
+				<div className="container px-4 md:px-6 lg:px-8">&copy; 2024 The XRPay Wallet. All rights reserved.</div>
 			</footer>
 		</div>
 	)
