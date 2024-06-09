@@ -57,6 +57,7 @@ export default function Component() {
   }
 
   async function handleCommand(command: any) {
+    console.log(command.TransactionType, command.transactionType);
     switch (command.transactionType) {
       case ("payment" || "Payment"): {
         const result = await paymentTransaction(command.amount, command.destination);
@@ -69,7 +70,7 @@ export default function Component() {
 
     if (command.transactionType == null && command.TransactionType != null) {
       switch (command.TransactionType) {
-        case ("payment" || "Payment"): {
+        case ("Payment"): {
           const result = await paymentTransaction(command.Amount, command.Destination);
           const url = `https://testnet.xrpl.org/transactions/${result.hash}`;
           const newMessage = { id: messages.length + 2, text: `${url}`, sender: "bot" };
@@ -82,9 +83,9 @@ export default function Component() {
   }
 
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col h-3/4 rounded-lg border">
       <header className="bg-[#23292F] py-4 px-6">
-        <div className="flex items-center">
+      <div className="flex items-center">
           <h1 className="text-white text-lg font-bold">XRPay Chat</h1>
         </div>
       </header>
@@ -114,7 +115,7 @@ export default function Component() {
           </div>
         ))}
       </div>
-      <form onSubmit={async (e: any) => await handleSubmit(e)} className="bg-gray-100 py-4 px-6 flex items-center">
+      <form onSubmit={async (e: any) => await handleSubmit(e)} className="bg-gray-100 py-4 px-6 flex items-center py-10">
         <Input
           type="text"
           placeholder="Type your message..."

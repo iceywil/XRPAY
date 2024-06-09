@@ -6,7 +6,7 @@
 import Link from "next/link"
 import { Button } from "@/app/components/ui/button"
 // import { Popover, PopoverTrigger, PopoverContent } from "@/app/components/ui/popover"
-import { Input } from "@/app/components/ui/input"
+// import { Input } from "@/app/components/ui/input"
 
 export default function Component() {
   return (
@@ -34,20 +34,6 @@ export default function Component() {
               prefetch={false}>
               Chat
             </Link>
-            <Link
-              href="#"
-              className="text-gray-400 hover:text-gray-50 dark:text-gray-400 dark:hover:text-gray-50"
-              prefetch={false}
-            >
-              Transactions
-            </Link>
-            <Link
-              href="#"
-              className="text-gray-400 hover:text-gray-50 dark:text-gray-400 dark:hover:text-gray-50"
-              prefetch={false}
-            >
-              Settings
-            </Link>
           </nav>
         </div>
         <div className="flex items-center gap-4">
@@ -61,7 +47,7 @@ export default function Component() {
               <span className="sr-only">Toggle menu</span>
             </Button>
             <div className="absolute right-0 mt-2 w-48 origin-top-right rounded-md bg-gray-800 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-gray-800">
-              <Link
+              {/* <Link
                 href="#"
                 className="block px-4 py-2 text-sm text-gray-400 hover:bg-gray-700 dark:text-gray-400 dark:hover:bg-gray-700"
                 prefetch={false}
@@ -81,7 +67,7 @@ export default function Component() {
                 prefetch={false}
               >
                 Logout
-              </Link>
+              </Link> */}
             </div>
           </div>
         </div>
