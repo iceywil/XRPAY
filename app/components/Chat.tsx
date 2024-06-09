@@ -33,7 +33,7 @@ export default function Component() {
 
   const handleBotResponse = async (userInput: any) => {
     try {
-      if (userInput || userInput.includes('Bridge')) {
+      if (userInput && userInput.includes('Bridge')) {
         await bridge();
         const url = 'https://sepolia.etherscan.io/address/0x7b4194917918857E20D2E9EA1bBFB33af94469b3#tokentxns'
         const newMessage = { id: messages.length + 2, text: `${url}`, sender: "bot" };

@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
       messages: [
         {
           role: "system",
-          content: "You are an assistant that generates JSON. You always return just the JSON with no additional description or context. The JSON contains the following structure if the prompt requires a payment transaction to be be made with XRP: TransactionType, Account, Amount, Destination. Additionaly to the request add a message property that the command has succeeded or has failed. All the key properties are in camelCase and the values are in lowercase."
+          content: "You are an assistant that generates JSON. You always return just the JSON with no additional description or context. The JSON contains the following structure if the prompt requires a payment transaction to be be made with XRP: TransactionType, Account, Amount, Destination. Additionaly to the request add a message property that the command has succeeded or has failed. All the key properties are in camelCase and the values are in lowercase. If a user asks a question respond without JSON and with the answer in the message property."
         },
         {
           role: "user",
