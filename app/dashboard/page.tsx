@@ -5,60 +5,65 @@ import { useEffect } from "react";
 import { Button } from "@/app/components/ui/button"
 // import { Popover, PopoverTrigger, PopoverContent } from "@/app/components/ui/popover"
 import { Input } from "@/app/components/ui/input"
-
+import { bridge } from "@/app/lib/bridgeXrpToSep"
 export default function Component() {
-  return (
-    <div className="flex flex-col min-h-[100dvh]">
-      <header className="bg-gray-800 dark:bg-gray-800 shadow-sm py-4 px-6 flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <Link
-            href="#"
-            className="flex items-center gap-2 font-semibold text-gray-50 dark:text-gray-50"
-            prefetch={false}
-          >
-            <WalletIcon className="h-6 w-6" />
-            <span>Wallet</span>
-          </Link>
-          <nav className="hidden md:flex items-center gap-4 text-sm font-medium">
-            <Link
-              href="#"
-              className="text-gray-400 hover:text-gray-50 dark:text-gray-400 dark:hover:text-gray-50"
-              prefetch={false}
-            >
-              Dashboard
-            </Link>
-            <Link href="/chat"
-              className="text-gray-400 hover:text-gray-50 dark:text-gray-400 dark:hover:text-gray-50"
-              prefetch={false}>
-              Chat
-            </Link>
-            <Link
-              href="#"
-              className="text-gray-400 hover:text-gray-50 dark:text-gray-400 dark:hover:text-gray-50"
-              prefetch={false}
-            >
-              Transactions
-            </Link>
-            <Link
-              href="#"
-              className="text-gray-400 hover:text-gray-50 dark:text-gray-400 dark:hover:text-gray-50"
-              prefetch={false}
-            >
-              Settings
-            </Link>
-          </nav>
-        </div>
-        <div className="flex items-center gap-4">
-          <Button variant="ghost" size="icon" className="rounded-full">
-            <BellIcon className="h-5 w-5 text-gray-400 dark:text-gray-400" />
-            <span className="sr-only">Notifications</span>
-          </Button>
-          <div className="relative">
-            <Button variant="ghost" size="icon" className="rounded-full">
-              <MenuIcon className="h-5 w-5 text-gray-400 dark:text-gray-400" />
-              <span className="sr-only">Toggle menu</span>
-            </Button>
-            <div className="absolute right-0 mt-2 w-48 origin-top-right rounded-md bg-gray-800 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-gray-800">
+    const executeBridge = async () => {
+        await bridge();
+    };
+	
+	
+	return (
+		<div className="flex flex-col min-h-[100dvh]">
+			<header className="bg-gray-800 dark:bg-gray-800 shadow-sm py-4 px-6 flex items-center justify-between">
+				<div className="flex items-center gap-4">
+					<Link
+						href="#"
+						className="flex items-center gap-2 font-semibold text-gray-50 dark:text-gray-50"
+						prefetch={false}
+					>
+						<WalletIcon className="h-6 w-6" />
+						<span>XRPay</span>
+					</Link>
+					<nav className="hidden md:flex items-center gap-4 text-sm font-medium">
+						<Link
+							href="#"
+							className="text-gray-400 hover:text-gray-50 dark:text-gray-400 dark:hover:text-gray-50"
+							prefetch={false}
+						>
+							Dashboard
+						</Link>
+						<Link href="/chat"
+							className="text-gray-400 hover:text-gray-50 dark:text-gray-400 dark:hover:text-gray-50"
+							prefetch={false}>
+							Chat
+						</Link>
+						<Link
+							href="#"
+							className="text-gray-400 hover:text-gray-50 dark:text-gray-400 dark:hover:text-gray-50"
+							prefetch={false}
+						>
+							Transactions
+						</Link>
+						<Link
+							href="#"
+							className="text-gray-400 hover:text-gray-50 dark:text-gray-400 dark:hover:text-gray-50"
+							prefetch={false}
+						>
+							Settings
+						</Link>
+					</nav>
+				</div>
+				<div className="flex items-center gap-4">
+					<Button variant="ghost" size="icon" className="rounded-full">
+						<BellIcon className="h-5 w-5 text-gray-400 dark:text-gray-400" />
+						<span className="sr-only">Notifications</span>
+					</Button>
+					<div className="relative">
+						<Button variant="ghost" size="icon" className="rounded-full">
+							<MenuIcon className="h-5 w-5 text-gray-400 dark:text-gray-400" />
+							<span className="sr-only">Toggle menu</span>
+						</Button>
+						{/* <div className="absolute right-0 mt-2 w-48 origin-top-right rounded-md bg-gray-800 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-gray-800">
               <Link
                 href="#"
                 className="block px-4 py-2 text-sm text-gray-400 hover:bg-gray-700 dark:text-gray-400 dark:hover:bg-gray-700"
@@ -80,107 +85,109 @@ export default function Component() {
               >
                 Logout
               </Link>
-            </div>
-          </div>
-        </div>
-      </header>
-      <main className="flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
-        <div className="bg-gray-800 dark:bg-gray-800 rounded-lg shadow-sm p-6 flex flex-col gap-4">
-          <div className="flex items-center justify-between">
-            <h2 className="text-2xl font-bold text-gray-50 dark:text-gray-50">Total Value</h2>
-            <DollarSignIcon className="h-6 w-6 text-gray-400 dark:text-gray-400" />
-          </div>
-          <div className="text-4xl font-bold text-gray-50 dark:text-gray-50">$12,345.67</div>
-          <div className="flex gap-4">
-            <Button>Send</Button>
-            <Button variant="outline">Receive</Button>
-          </div>
-        </div>
-        <div className="bg-gray-800 dark:bg-gray-800 rounded-lg shadow-sm p-6 flex flex-col gap-4">
-          <h2 className="text-2xl font-bold text-gray-50 dark:text-gray-50">My Tokens</h2>
-          <div className="grid gap-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <div className="bg-gray-700 dark:bg-gray-700 rounded-full w-10 h-10 flex items-center justify-center">
-                  <BitcoinIcon className="h-6 w-6 text-gray-400 dark:text-gray-400" />
-                </div>
-                <div>
-                  <div className="font-medium text-gray-50 dark:text-gray-50">Bitcoin</div>
-                  <div className="text-gray-400 dark:text-gray-400 text-sm">BTC</div>
-                </div>
-              </div>
-              <div className="text-gray-50 dark:text-gray-50 font-medium">0.5432</div>
-            </div>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <div className="bg-gray-700 dark:bg-gray-700 rounded-full w-10 h-10 flex items-center justify-center">
-                  <EclipseIcon className="h-6 w-6 text-gray-400 dark:text-gray-400" />
-                </div>
-                <div>
-                  <div className="font-medium text-gray-50 dark:text-gray-50">Ethereum</div>
-                  <div className="text-gray-400 dark:text-gray-400 text-sm">ETH</div>
-                </div>
-              </div>
-              <div className="text-gray-50 dark:text-gray-50 font-medium">2.1234</div>
-            </div>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <div className="bg-gray-700 dark:bg-gray-700 rounded-full w-10 h-10 flex items-center justify-center">
-                  <BitcoinIcon className="h-6 w-6 text-gray-400 dark:text-gray-400" />
-                </div>
-                <div>
-                  <div className="font-medium text-gray-50 dark:text-gray-50">Litecoin</div>
-                  <div className="text-gray-400 dark:text-gray-400 text-sm">LTC</div>
-                </div>
-              </div>
-              <div className="text-gray-50 dark:text-gray-50 font-medium">10.5678</div>
-            </div>
-          </div>
-        </div>
-        <div className="bg-gray-800 dark:bg-gray-800 rounded-lg shadow-sm p-6 flex flex-col gap-4">
-          <h2 className="text-2xl font-bold text-gray-50 dark:text-gray-50">Recent Transactions</h2>
-          <div className="grid gap-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <div className="bg-gray-700 dark:bg-gray-700 rounded-full w-10 h-10 flex items-center justify-center">
-                  <SendIcon className="h-6 w-6 text-gray-400 dark:text-gray-400" />
-                </div>
-                <div>
-                  <div className="font-medium text-gray-50 dark:text-gray-50">Sent to John</div>
-                  <div className="text-gray-400 dark:text-gray-400 text-sm">2 days ago</div>
-                </div>
-              </div>
-              <div className="text-red-500 font-medium">-$50.00</div>
-            </div>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <div className="bg-gray-700 dark:bg-gray-700 rounded-full w-10 h-10 flex items-center justify-center">
-                  <ReceiptIcon className="h-6 w-6 text-gray-400 dark:text-gray-400" />
-                </div>
-                <div>
-                  <div className="font-medium text-gray-50 dark:text-gray-50">Received from Jane</div>
-                  <div className="text-gray-400 dark:text-gray-400 text-sm">5 days ago</div>
-                </div>
-              </div>
-              <div className="text-green-500 font-medium">+$100.00</div>
-            </div>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <div className="bg-gray-700 dark:bg-gray-700 rounded-full w-10 h-10 flex items-center justify-center">
-                  <ShuffleIcon className="h-6 w-6 text-gray-400 dark:text-gray-400" />
-                </div>
-                <div>
-                  <div className="font-medium text-gray-50 dark:text-gray-50">Swapped BTC for ETH</div>
-                  <div className="text-gray-400 dark:text-gray-400 text-sm">1 week ago</div>
-                </div>
-              </div>
-              <div className="text-gray-50 dark:text-gray-50 font-medium">-0.1234 BTC</div>
-            </div>
-          </div>
-        </div>
-      </main>
-      <div className="fixed bottom-6 right-6">
-        {/* <Popover>
+            </div> */}
+					</div>
+				</div>
+			</header>
+			<main className="flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
+				<div className="bg-gray-800 dark:bg-gray-800 rounded-lg shadow-sm p-6 flex flex-col gap-4">
+					<div className="flex items-center justify-between">
+						<h2 className="text-2xl font-bold text-gray-50 dark:text-gray-50">Total Value</h2>
+						<DollarSignIcon className="h-6 w-6 text-gray-400 dark:text-gray-400" />
+					</div>
+					<div className="text-4xl font-bold text-gray-50 dark:text-gray-50">$140.67</div>
+					<div className="flex gap-4">
+						<Button>Send</Button>
+						<Button variant="outline">Receive</Button>
+						<Button>Swap</Button>
+						<Button variant="outline" onClick={executeBridge}>Bridge</Button>
+						</div>
+				</div>
+				<div className="bg-gray-800 dark:bg-gray-800 rounded-lg shadow-sm p-6 flex flex-col gap-4">
+					<h2 className="text-2xl font-bold text-gray-50 dark:text-gray-50">My Tokens</h2>
+					<div className="grid gap-4">
+						<div className="flex items-center justify-between">
+							<div className="flex items-center gap-4">
+								<div className="bg-gray-700 dark:bg-gray-700 rounded-full w-10 h-10 flex items-center justify-center">
+									<BitcoinIcon className="h-6 w-6 text-gray-400 dark:text-gray-400" />
+								</div>
+								<div>
+									<div className="font-medium text-gray-50 dark:text-gray-50">Bitcoin</div>
+									<div className="text-gray-400 dark:text-gray-400 text-sm">BTC</div>
+								</div>
+							</div>
+							<div className="text-gray-50 dark:text-gray-50 font-medium">0.5432</div>
+						</div>
+						<div className="flex items-center justify-between">
+							<div className="flex items-center gap-4">
+								<div className="bg-gray-700 dark:bg-gray-700 rounded-full w-10 h-10 flex items-center justify-center">
+									<EclipseIcon className="h-6 w-6 text-gray-400 dark:text-gray-400" />
+								</div>
+								<div>
+									<div className="font-medium text-gray-50 dark:text-gray-50">Ethereum</div>
+									<div className="text-gray-400 dark:text-gray-400 text-sm">ETH</div>
+								</div>
+							</div>
+							<div className="text-gray-50 dark:text-gray-50 font-medium">2.1234</div>
+						</div>
+						<div className="flex items-center justify-between">
+							<div className="flex items-center gap-4">
+								<div className="bg-gray-700 dark:bg-gray-700 rounded-full w-10 h-10 flex items-center justify-center">
+									<BitcoinIcon className="h-6 w-6 text-gray-400 dark:text-gray-400" />
+								</div>
+								<div>
+									<div className="font-medium text-gray-50 dark:text-gray-50">Litecoin</div>
+									<div className="text-gray-400 dark:text-gray-400 text-sm">LTC</div>
+								</div>
+							</div>
+							<div className="text-gray-50 dark:text-gray-50 font-medium">10.5678</div>
+						</div>
+					</div>
+				</div>
+				<div className="bg-gray-800 dark:bg-gray-800 rounded-lg shadow-sm p-6 flex flex-col gap-4">
+					<h2 className="text-2xl font-bold text-gray-50 dark:text-gray-50">Recent Transactions</h2>
+					<div className="grid gap-4">
+						<div className="flex items-center justify-between">
+							<div className="flex items-center gap-4">
+								<div className="bg-gray-700 dark:bg-gray-700 rounded-full w-10 h-10 flex items-center justify-center">
+									<SendIcon className="h-6 w-6 text-gray-400 dark:text-gray-400" />
+								</div>
+								<div>
+									<div className="font-medium text-gray-50 dark:text-gray-50">Sent to John</div>
+									<div className="text-gray-400 dark:text-gray-400 text-sm">2 days ago</div>
+								</div>
+							</div>
+							<div className="text-red-500 font-medium">-$50.00</div>
+						</div>
+						<div className="flex items-center justify-between">
+							<div className="flex items-center gap-4">
+								<div className="bg-gray-700 dark:bg-gray-700 rounded-full w-10 h-10 flex items-center justify-center">
+									<ReceiptIcon className="h-6 w-6 text-gray-400 dark:text-gray-400" />
+								</div>
+								<div>
+									<div className="font-medium text-gray-50 dark:text-gray-50">Received from Jane</div>
+									<div className="text-gray-400 dark:text-gray-400 text-sm">5 days ago</div>
+								</div>
+							</div>
+							<div className="text-green-500 font-medium">+$100.00</div>
+						</div>
+						<div className="flex items-center justify-between">
+							<div className="flex items-center gap-4">
+								<div className="bg-gray-700 dark:bg-gray-700 rounded-full w-10 h-10 flex items-center justify-center">
+									<ShuffleIcon className="h-6 w-6 text-gray-400 dark:text-gray-400" />
+								</div>
+								<div>
+									<div className="font-medium text-gray-50 dark:text-gray-50">Swapped BTC for ETH</div>
+									<div className="text-gray-400 dark:text-gray-400 text-sm">1 week ago</div>
+								</div>
+							</div>
+							<div className="text-gray-50 dark:text-gray-50 font-medium">-0.1234 BTC</div>
+						</div>
+					</div>
+				</div>
+			</main>
+			<div className="fixed bottom-6 right-6">
+				{/* <Popover>
           <PopoverTrigger asChild>
             <Button variant="outline" size="icon" className="rounded-full bg-gray-900 text-gray-50">
               <div className="flex flex-col items-start">
