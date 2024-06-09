@@ -14,7 +14,7 @@ export default function Component() {
   const [messages, setMessages] = useState([
     {
       id: 1,
-      text: "Hello! I am the XRPay Chatbot. How can I assist you today?",
+      text: "Hello! I am the XRPay assistant. How can I assist you today?",
       sender: "bot",
     },
   ])
@@ -40,7 +40,7 @@ export default function Component() {
         body: JSON.stringify({ userInput })
       });
       const data = await response.json();
-
+      console.log(data);
       await handleCommand(data);
 
       if (data.message) {
@@ -59,12 +59,24 @@ export default function Component() {
   async function handleCommand(command: any) {
     switch (command.transactionType) {
       case ("payment" || "Payment"): {
-        const result = await paymentTransaction(command.amount);
+        const result = await paymentTransaction(command.amount, command.destination);
         const url = `https://testnet.xrpl.org/transactions/${result.hash}`;
         const newMessage = { id: messages.length + 2, text: `${url}`, sender: "bot" };
         setMessages(prevMessages => [...prevMessages, newMessage]);
       }
         break;
+    }
+
+    if (command.transactionType == null && command.TransactionType != null) {
+      switch (command.TransactionType) {
+        case ("payment" || "Payment"): {
+          const result = await paymentTransaction(command.Amount, command.Destination);
+          const url = `https://testnet.xrpl.org/transactions/${result.hash}`;
+          const newMessage = { id: messages.length + 2, text: `${url}`, sender: "bot" };
+          setMessages(prevMessages => [...prevMessages, newMessage]);
+        }
+          break;
+      }
     }
 1
   }
@@ -73,7 +85,7 @@ export default function Component() {
     <div className="flex flex-col h-screen">
       <header className="bg-[#23292F] py-4 px-6">
         <div className="flex items-center">
-          <h1 className="text-white text-lg font-bold">XRPay Chatbot</h1>
+          <h1 className="text-white text-lg font-bold">XRPay Chat</h1>
         </div>
       </header>
       <div className="flex-1 overflow-y-auto p-6">
@@ -90,7 +102,7 @@ export default function Component() {
               {/* Check if the message contains a URL */}
               {message.text.startsWith("https") ? (
                 // If the message starts with "http" assuming it's a URL
-                <a href={message.text} target="_blank" rel="noopener noreferrer" href={message.text}>
+                <a href={message.text} target="_blank" rel="noopener noreferrer">
                   {/* Render the URL as a clickable link */}
                   Link
                 </a>

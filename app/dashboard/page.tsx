@@ -29,6 +29,11 @@ export default function Component() {
             >
               Dashboard
             </Link>
+            <Link href="/chat"
+              className="text-gray-400 hover:text-gray-50 dark:text-gray-400 dark:hover:text-gray-50"
+              prefetch={false}>
+              Chat
+            </Link>
             <Link
               href="#"
               className="text-gray-400 hover:text-gray-50 dark:text-gray-400 dark:hover:text-gray-50"

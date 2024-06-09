@@ -73,4 +73,8 @@
     body {
       @apply bg-background text-foreground;
     }
+    a {
+      color: darkblue;
+      text-decoration: underline;
+    }
   }
