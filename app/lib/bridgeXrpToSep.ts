@@ -1,6 +1,6 @@
 import { Client, Payment, xrpToDrops } from "xrpl" 
 
-export const paymentTransaction = async () => {
+export const bridge = async () => {
   console.log("lets get started...");
   const client = new Client("wss://s.altnet.rippletest.net:51233")
   await client.connect();
@@ -21,7 +21,9 @@ export const paymentTransaction = async () => {
     Memos: [
         {
             Memo: {
-                MemoData: "0x7b4194917918857E20D2E9EA1bBFB33af94469b3", // your ETH recipient address, without the 0x prefix
+				//0x7b4194917918857E20D2E9EA1bBFB33af94469b3
+				
+                MemoData: "7b4194917918857E20D2E9EA1bBFB33af94469b3", // your ETH recipient address, without the 0x prefix
                 MemoType: "64657374696E6174696F6E5F61646472657373", // hex("destination_address")
             },
         },
@@ -56,5 +58,3 @@ export const paymentTransaction = async () => {
   await client.disconnect();
   return result.result;
 };
-
-paymentTransaction();
