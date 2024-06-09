@@ -83,13 +83,13 @@ export default function Component() {
   }
 
   return (
-    <div className="flex flex-col h-3/4 rounded-lg border">
+    <div className="flex flex-col h-full rounded-lg border">
       <header className="bg-[#23292F] py-4 px-6">
       <div className="flex items-center">
           <h1 className="text-white text-lg font-bold">XRPay Chat</h1>
         </div>
       </header>
-      <div className="flex-1 overflow-y-auto p-6">
+      <div className="flex-1 overflow-y-auto p-6 bg-white">
         {messages.map((message) => (
           <div
             key={message.id}
