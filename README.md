@@ -1,4 +1,4 @@
-XRPAY - EasyA x XRP Ledger 2024 Hackathon in Amsterdam
+# XRPAY - EasyA x XRP Ledger 2024 Hackathon Amsterdam - Prize Winner
 
 3rd Place Prize Winner - Best Dapp on XRPL Track
 
